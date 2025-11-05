@@ -5,9 +5,6 @@ import numpy as np
 import os
 import time
 
-# Debug: Show current directory contents
-st.write("Current directory files:", os.listdir('.'))
-
 # Robust file loading with multiple attempts
 def load_model():
     model = None
@@ -16,21 +13,18 @@ def load_model():
     # Try different possible file paths
     model_paths = [
         'diabetes_model.pkl',
-        './diabetes_model.pkl',
-        '/mount/src/your-repo-name/diabetes_model.pkl'  # Replace with your actual repo name
+        './diabetes_model.pkl'
     ]
     
     scaler_paths = [
         'scaler.pkl', 
-        './scaler.pkl',
-        '/mount/src/your-repo-name/scaler.pkl'  # Replace with your actual repo name
+        './scaler.pkl'
     ]
     
     for model_path in model_paths:
         try:
             with open(model_path, 'rb') as file:
                 model = pickle.load(file)
-            st.success(f"Model loaded from: {model_path}")
             break
         except FileNotFoundError:
             continue
@@ -39,7 +33,6 @@ def load_model():
         try:
             with open(scaler_path, 'rb') as file:
                 scaler = pickle.load(file)
-            st.success(f"Scaler loaded from: {scaler_path}")
             break
         except FileNotFoundError:
             continue
@@ -58,11 +51,6 @@ if model is None or scaler is None:
     """)
     st.stop()
 
-# Your existing app code continues here...
-st.title("Diabetes Prediction App")
-
-# Add your input fields and prediction logic here
-# ... rest of your app code
 # --- PAGE CONFIG ---
 st.set_page_config(
     page_title="Health AI - Diabetes Predictor",
